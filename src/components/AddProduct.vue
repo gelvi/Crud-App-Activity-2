@@ -4,15 +4,15 @@
     <form @submit.prevent="addProduct" class="add-product-form">
       <div class="form-group">
         <label for="name">Product Name</label>
-        <input type="text" id="name" v-model="name" class="form-control" placeholder="Enter product name" required>
+        <input type="text" id="name" v-model="name" class="form-control" placeholder="Enter Product Name" required>
       </div>
       <div class="form-group">
         <label for="description">Description</label>
-        <input type="text" id="description" v-model="description" class="form-control" placeholder="Enter product description" required>
+        <input type="text" id="description" v-model="description" class="form-control" placeholder="Enter Product Description" required>
       </div>
       <div class="form-group">
         <label for="price">Price</label>
-        <input type="number" id="price" v-model.number="price" class="form-control" placeholder="Enter product price" min="0" required>
+        <input type="number" id="price" v-model.number="price" class="form-control" placeholder="Enter Product Price" min="0" required>
       </div>
       <div class="form-group">
         <button type="submit" class="btn-submit">Add Product</button>
@@ -52,12 +52,17 @@ export default {
 <style scoped>
 .add-product-container {
   max-width: 400px;
-  margin: 0 auto;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  background-color: #333;
 }
 
 .add-product-container h2 {
   text-align: center;
   margin-bottom: 20px;
+  color: #fff;
 }
 
 .add-product-form .form-group {
@@ -68,30 +73,38 @@ export default {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
+  color: #fff;
 }
 
 .add-product-form .form-control {
   width: 100%;
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #ddd;
+  border: 1px solid #555;
   border-radius: 5px;
   box-sizing: border-box;
+  background-color: #444;
+  color: #fff;
 }
 
+.add-product-form .form-control:focus {
+  border-color: #4caf50;
+}
 
 .add-product-form .btn-submit {
   width: 100%;
   padding: 10px;
-  background-color: black;
+  background-color: #4caf50;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .add-product-form .btn-submit:hover {
-  background-color: green;
+  background-color: #45a049;
 }
 </style>
+
