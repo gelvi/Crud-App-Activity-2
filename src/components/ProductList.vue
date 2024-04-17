@@ -38,15 +38,16 @@
       </div>
   
       <div>
-        <AddProduct />
+        <AddProduct/>
       </div>
     </div>
   </template>
   
   <script>
-  import AddProduct from './AddProduct.vue';
+  import AddProduct from './AddProduct.vue'
   
   export default {
+    name: 'productList',
     components: {
        AddProduct
     },
@@ -61,15 +62,8 @@
         return this.$store.state.products;
       },
     },
-    methods: {
-     
-      
-      
-      
-      
+    methods: {      
     },
   };
   </script>
-  
-  
   
