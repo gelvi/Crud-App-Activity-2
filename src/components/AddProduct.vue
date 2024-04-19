@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import Swal from 'sweetalert2'
 export default {
   data() {
     return {
@@ -33,9 +32,7 @@ export default {
   },
   methods: {
     addProduct() {
-      
       if (!this.name || !this.description || !this.price) {
-      
         return; 
       }
 
@@ -46,12 +43,13 @@ export default {
       };
       
       this.$store.dispatch('addProduct', product);
-      
-      Swal.fire("Product Added successfully!");
-      
+
       this.name = '';
       this.description = '';
       this.price = '';
+
+      // Optionally, you can add a message or toast here to indicate success
+      console.log('Product added successfully!');
     }
   }
 };
@@ -115,4 +113,3 @@ export default {
   background-color: #45a049;
 }
 </style>
-
