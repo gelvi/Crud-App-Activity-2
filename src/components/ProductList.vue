@@ -27,6 +27,7 @@
                   <input v-else v-model="product.editedPrice" type="number" required>
               </td>
               <td>
+                <button @click="deleteProduct(product.id)">Delete</button> <!-- Delete button -->
               </td>
             </tr>
       
@@ -90,12 +91,20 @@
       }
     },
     deleteProduct(productId) {
-      // Implement your delete logic here, like dispatching an action to Vuex
-      // this.$store.dispatch('deleteProduct', productId);
-    }, 
-    editProductFromButton(product) {
-      // Triggered when the edit button is clicked
-      this.editProduct(product);
+    // Dispatch an action to Vuex to delete the product
+    this.$store.dispatch('deleteProduct', productId)
+      .then(() => {
+        // Optional: Show a success message or perform any additional tasks after deletion
+        console.log('Product deleted successfully.');
+      })
+      .catch(error => {
+        // Handle any errors that occur during product deletion
+        console.error('Error deleting product:', error);
+      });
+    },
+      editProductFromButton(product) {
+        // Triggered when the edit button is clicked
+        this.editProduct(product);
     }
       
     },
