@@ -13,7 +13,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="product in products" :key="product.id" :class="{ 'fade-out': product.isSaving }">
+        <tr v-for="product in products" :key="product.id" :class="{ 'fade-out': product.isSaving, 'bounce-animation': product.isDeleting }">
           <td>
             <span v-if="!product.editing" @click="editProduct(product)">{{ product.name }}</span>
             <input v-else v-model="product.editedName" type="text" required>
@@ -91,29 +91,25 @@ export default {
       product.price = product.editedPrice;
       product.editing = false;
 
-      // Apply animation class to the edited product's row
+      // Apply animation on to the edited product's row when edited
       product.isSaving = true;
       setTimeout(() => {
-        product.isSaving = false; // Remove animation class after animation completes
-      }, 500); // Adjust timing based on your animation duration
+        product.isSaving = false; 
+      }, 500); 
 
       // Optionally, you can add a message or toast here to indicate success
       console.log('Product edited successfully!');
     },
     deleteProduct(product) {
       if (confirm("Are you sure you want to delete this product?")) {
-        // Fade out transition
-        const element = event.target.parentElement.parentElement;
-        element.style.transition = "opacity 0.5s ease";
-        element.style.opacity = 0;
-
-        // Remove the product from the list after transition
+        // Apply bounce animation to the deleted product's row
+        product.isDeleting = true;
         setTimeout(() => {
           const index = this.products.findIndex(p => p.id === product.id);
           if (index !== -1) {
             this.products.splice(index, 1);
           }
-        }, 500); // Wait for the transition to complete (500ms in this case)
+        }, 500); // Adjust timing based on your animation duration
       }
     },
     editProductFromButton(product) {
@@ -136,12 +132,22 @@ export default {
 }
 
 .save-animation {
-  animation: saveAnimation 2.5s ease;
+  animation: saveAnimation 0.5s ease;
 }
 
 @keyframes saveAnimation {
   0% { opacity: 1; }
   100% { opacity: 0; }
+}
+
+.bounce-animation {
+  animation: bounceAnimation 0.5s ease;
+}
+
+@keyframes bounceAnimation {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
 }
 
 /* Style for the table */
