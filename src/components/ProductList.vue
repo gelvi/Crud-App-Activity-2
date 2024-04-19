@@ -45,7 +45,7 @@
   
   <script>
   import AddProduct from './AddProduct.vue'
-  
+
   export default {
     name: 'productList',
     components: {
@@ -54,6 +54,7 @@
     data() {
       return {
         productMessage: '',
+        editingProduct: null,
       };
     },
     computed: {
@@ -62,7 +63,41 @@
         return this.$store.state.products;
       },
     },
-    methods: {      
+    methods: {     
+      editProduct(product) {
+      // Reset editing status for other products
+      this.products.forEach(prod => prod.editing = false);
+      product.editing = true;
+      // Create a copy of the original data for editing
+      product.editedName = product.name;
+      product.editedDescription = product.description;
+      product.editedPrice = product.price;
+      this.editingProduct = product;
+    },
+    saveProduct(updatedProduct) {
+      // Update the original product data with the edited values
+      updatedProduct.name = updatedProduct.editedName;
+      updatedProduct.description = updatedProduct.editedDescription;
+      updatedProduct.price = updatedProduct.editedPrice;
+      updatedProduct.editing = false;
+      this.editingProduct = null;
+      // You might want to dispatch an action to update the product in Vuex store
+    },
+    cancelEdit() {
+      if (this.editingProduct) {
+        this.editingProduct.editing = false;
+        this.editingProduct = null;
+      }
+    },
+    deleteProduct(productId) {
+      // Implement your delete logic here, like dispatching an action to Vuex
+      // this.$store.dispatch('deleteProduct', productId);
+    }, 
+    editProductFromButton(product) {
+      // Triggered when the edit button is clicked
+      this.editProduct(product);
+    }
+      
     },
   };
   </script>

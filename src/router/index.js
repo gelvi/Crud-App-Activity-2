@@ -4,7 +4,7 @@ import ProductList from '../components/ProductList.vue'
 
 const routes = [
   {
-    path: '/',
+    path: './',
     name: 'ProductList', // Route name for ProductList.vue
     component: ProductList
   },
