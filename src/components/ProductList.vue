@@ -26,9 +26,10 @@
                   <span v-if="!product.editing" @click="editProduct(product)">₱{{ product.price }}</span>
                   <input v-else v-model="product.editedPrice" type="number" required>
               </td>
-              <td>
+              <td :class="{ 'fade-out': isFadingOut }">
                 <button @click="deleteProduct(product)">Delete</button>
               </td>
+
             </tr>
       
         </tbody>
@@ -91,10 +92,19 @@
       }
     },
     deleteProduct(product) {
-      // Remove the product from the list
-      const index = this.products.findIndex(p => p.id === product.id);
-      if (index !== -1) {
-        this.products.splice(index, 1);
+      if (confirm("Are you sure you want to delete this product?")) {
+        // Fade out transition
+        const element = event.target.parentElement.parentElement;
+        element.style.transition = "opacity 0.5s ease";
+        element.style.opacity = 0;
+
+        // Remove the product from the list after transition
+        setTimeout(() => {
+          const index = this.products.findIndex(p => p.id === product.id);
+          if (index !== -1) {
+            this.products.splice(index, 1);
+          }
+        }, 500); // Wait for the transition to complete (500ms in this case)
       }
     },
       editProductFromButton(product) {
@@ -106,3 +116,53 @@
   };
   </script>
   
+  <style>
+    .fade-out {
+      opacity: 1;
+      transition: opacity 0.5s ease;
+    }
+
+    .fade-out:hover {
+      opacity: 0.5;
+    }
+
+    
+        /* Style for the table */
+    table {
+      width: 100%; /* Make the table full width */
+      border-collapse: collapse; /* Collapse borders for a seamless look */
+    }
+
+    /* Style for table header */
+    th, td {
+      padding: 10px; /* Add padding */
+      border: 1px solid #ddd; /* Add a 1px solid border around each cell */
+    }
+
+    /* Style for table header */
+    th {
+      background-color: #f2f2f2; /* Light gray background color */
+      text-align: left; /* Align text to the left */
+    }
+
+    /* Style for alternating row colors */
+    tbody tr:nth-child(even) {
+      background-color: #f9f9f9; /* Light gray background color for even rows */
+    }
+
+    /* Style for delete button */
+    button {
+      background-color: #dc3545; /* Red background color */
+      color: #fff; /* White text color */
+      border: none; /* Remove border */
+      padding: 5px 10px; /* Add padding */
+      cursor: pointer; /* Change cursor to pointer */
+    }
+
+    /* Hover effect for delete button */
+    button:hover {
+      background-color: #c82333; /* Darker red color on hover */
+    }
+
+
+  </style>
