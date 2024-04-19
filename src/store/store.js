@@ -8,10 +8,15 @@ export const store = new Vuex.Store({
       { id: 2, name: 'RAKK DIWA Mechanical Keyboard', description: 'DIWA V2 68 Keys Mechanical Gaming Keyboard | Outemu Blue or Red Hotswap|', price: 995.00, },
       { id: 3, name: 'AKK PRIYO Trimode ', description: '1000 mAh Folding Design Gaming Headset Black', price: 2025.00, }
     ], 
+    nextProductId: 4
   },
   mutations: {
     addProduct(state, product) {
-      state.products.push(product);
+      state.products.push({
+        id: state.nextProductId,
+        ...product
+      });
+      state.nextProductId++;
     }
   },
   actions: {

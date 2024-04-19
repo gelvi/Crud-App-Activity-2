@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
 export default {
   data() {
     return {
@@ -32,15 +33,22 @@ export default {
   },
   methods: {
     addProduct() {
+      
+      if (!this.name || !this.description || !this.price) {
+      
+        return; 
+      }
+
       const product = {
         name: this.name,
         description: this.description,
         price: this.price
       };
-
+      
       this.$store.dispatch('addProduct', product);
-
-      // Reset form fields
+      
+      Swal.fire("Product Added successfully!");
+      
       this.name = '';
       this.description = '';
       this.price = '';
