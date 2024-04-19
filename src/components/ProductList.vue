@@ -27,7 +27,7 @@
                   <input v-else v-model="product.editedPrice" type="number" required>
               </td>
               <td :class="{ 'fade-out': isFadingOut }">
-                <button @click="product.editing ? saveProduct(product) : toggleEditMode(product)">
+                <button @click="product.editing ? saveProduct(product) : toggleEditMode(product)" class="btn btn-primary">
                   {{ product.editing ? 'Save' : 'Edit' }}</button>
               </td>
               <td :class="{ 'fade-out': isFadingOut }">
@@ -51,6 +51,8 @@
   
   <script>
   import AddProduct from './AddProduct.vue'
+  import Swal from 'sweetalert2'
+  
 
   export default {
     name: 'productList',
@@ -92,6 +94,11 @@
     product.description = product.editedDescription;
     product.price = product.editedPrice;
     product.editing = false;
+    Swal.fire({
+      title: "Editted Succesful!",
+      text: "Data have been saved!",
+        icon: "success"
+});
     
   },
     deleteProduct(product) {
