@@ -27,6 +27,10 @@
                   <input v-else v-model="product.editedPrice" type="number" required>
               </td>
               <td :class="{ 'fade-out': isFadingOut }">
+                <button @click="product.editing ? saveProduct(product) : toggleEditMode(product)">
+                  {{ product.editing ? 'Save' : 'Edit' }}</button>
+              </td>
+              <td :class="{ 'fade-out': isFadingOut }">
                 <button @click="deleteProduct(product)">Delete</button>
               </td>
 
@@ -66,31 +70,30 @@
       },
     },
     methods: {     
-      editProduct(product) {
-      // Reset editing status for other products
-      this.products.forEach(prod => prod.editing = false);
-      product.editing = true;
-      // Create a copy of the original data for editing
+      toggleEditMode(product) {
+    // Toggle editing mode for the clicked product
+    product.editing = !product.editing;
+    
+    // If switching to edit mode, create a copy of the original data for editing
+    if (product.editing) {
       product.editedName = product.name;
       product.editedDescription = product.description;
       product.editedPrice = product.price;
-      this.editingProduct = product;
-    },
-    saveProduct(updatedProduct) {
-      // Update the original product data with the edited values
-      updatedProduct.name = updatedProduct.editedName;
-      updatedProduct.description = updatedProduct.editedDescription;
-      updatedProduct.price = updatedProduct.editedPrice;
-      updatedProduct.editing = false;
-      this.editingProduct = null;
-      // You might want to dispatch an action to update the product in Vuex store
-    },
-    cancelEdit() {
-      if (this.editingProduct) {
-        this.editingProduct.editing = false;
-        this.editingProduct = null;
-      }
-    },
+    } else {
+      // If switching back from edit mode, reset edited values
+      delete product.editedName;
+      delete product.editedDescription;
+      delete product.editedPrice;
+    }
+  },
+  saveProduct(product) {
+    // Update the original product data with the edited values
+    product.name = product.editedName;
+    product.description = product.editedDescription;
+    product.price = product.editedPrice;
+    product.editing = false;
+    
+  },
     deleteProduct(product) {
       if (confirm("Are you sure you want to delete this product?")) {
         // Fade out transition
