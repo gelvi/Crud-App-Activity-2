@@ -1,26 +1,32 @@
 <template>
-  
-  <AddProduct></AddProduct>
+  <nav class="navbar">
+    <div class="nav-container">
+      <router-link to="/" class="nav-link">Product List</router-link>
+      <!-- <router-link to="/addProduct" class="nav-link">Add Product</router-link>  -->
+    </div>
+  </nav>
+  <router-view/>
 </template>
 
-<script>
-import AddProduct from '@/components/AddProduct.vue';
-
-export default {
-  name: 'App',
-  components:  {
-    AddProduct
-  }
-}
-</script>
-
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.navbar {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: center; /* Center-align the contents horizontally */
+}
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 10px; /* Adjust margin for spacing */
+}
+
+.nav-link:hover {
+  text-decoration: underline;
 }
 </style>

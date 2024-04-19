@@ -1,6 +1,7 @@
-import { createStore } from 'vuex';
+import Vuex from 'vuex'
 
-export default createStore({
+export const store = new Vuex.Store({
+  name: 'store',
   state: {
     products: [
       { id: 1, name: 'RAKK DASIG WIRELESS Gaming Mouse', description: 'RGB Rechargeable | 3325 Sensor | Huano Blue Switch|Black White Pink', price: 850.00, },                                                                                         
