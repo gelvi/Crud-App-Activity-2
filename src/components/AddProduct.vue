@@ -1,23 +1,26 @@
 <template>
   <div class="add-product-container">
     <h2>Add Product</h2>
-    <form @submit.prevent="addProduct" class="add-product-form">
-      <div class="form-group">
-        <label for="name">Product Name</label>
-        <input type="text" id="name" v-model="name" class="form-control" placeholder="Enter Product Name" required>
-      </div>
-      <div class="form-group">
-        <label for="description">Description</label>
-        <input type="text" id="description" v-model="description" class="form-control" placeholder="Enter Product Description" required>
-      </div>
-      <div class="form-group">
-        <label for="price">Price</label>
-        <input type="number" id="price" v-model.number="price" class="form-control" placeholder="Enter Product Price" min="0" required>
-      </div>
-      <div class="form-group">
-        <button type="submit" class="btn-submit">Add Product</button>
-      </div>
-    </form>
+    <transition name="fade">
+      <form v-if="!isAdding" @submit.prevent="addProduct" class="add-product-form">
+        <div class="form-group">
+          <label for="name">Product Name</label>
+          <input type="text" id="name" v-model="name" class="form-control" placeholder="Enter Product Name" required>
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input type="text" id="description" v-model="description" class="form-control" placeholder="Enter Product Description" required>
+        </div>
+        <div class="form-group">
+          <label for="price">Price</label>
+          <input type="number" id="price" v-model.number="price" class="form-control" placeholder="Enter Product Price" min="0" required>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn-submit">Add Product</button>
+        </div>
+      </form>
+    </transition>
+      <div v-if="isAdding" class="add-product-message">Product added successfully!</div>
   </div>
 </template>
 
@@ -25,6 +28,7 @@
 export default {
   data() {
     return {
+      isAdding: false,
       name: '',
       description: '',
       price: ''
@@ -48,8 +52,10 @@ export default {
       this.description = '';
       this.price = '';
 
-      // Optionally, you can add a message or toast here to indicate success
-      console.log('Product added successfully!');
+      this.isAdding = true; // Show success message
+      setTimeout(() => {
+        this.isAdding = false; // Reset after 3 seconds
+      }, 3000);
     }
   }
 };
@@ -111,5 +117,20 @@ export default {
 
 .add-product-form .btn-submit:hover {
   background-color: #45a049;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1.5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+.add-product-message {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #4caf50;
+  color: #fff;
+  border-radius: 5px;
+  text-align: center;
 }
 </style>

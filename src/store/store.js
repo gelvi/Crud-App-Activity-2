@@ -17,8 +17,12 @@ export const store = new Vuex.Store({
         ...product
       });
       state.nextProductId++;
+    },
+    removeProduct(state, productId) {
+      state.products = state.products.filter(product => product.id !== productId);
     }
   },
+  
   actions: {
     addProduct({ commit }, product) {
       commit('addProduct', product);
