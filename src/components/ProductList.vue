@@ -101,7 +101,7 @@ export default {
       console.log('Product edited successfully!');
     },
     deleteProduct(product) {
-      if (confirm("Are you sure you want to delete this product?")) {
+      if (confirm("Are you sure you want to delete?")) {
         // Apply bounce animation to the deleted product's row
         product.isDeleting = true;
         setTimeout(() => {
